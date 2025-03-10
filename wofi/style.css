@@ -1,0 +1,35 @@
+* {
+	border-radius: 10px;
+	border: none;
+	font-family: 'Commit-Mono';
+}
+
+window {
+	font-size: 16px;
+	background-color: rgba(50, 50, 50, 0.9);
+	color: white;
+}
+
+#entry {
+	padding: 0.5em;
+}
+
+#entry:selected {
+	background-color: #bbccdd;
+	background: linear-gradient(45deg, #33ccff, #00ff99);
+}
+
+#text:selected {
+	color: black;
+}
+
+#input {
+	background-color: rgba(50, 50, 50, 0.9);
+	color: white;
+	padding: 1em;
+}
+
+image {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+}
