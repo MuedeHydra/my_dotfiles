@@ -97,6 +97,10 @@ vim.api.nvim_create_autocmd("FileType", {
 
         vim.api.nvim_buf_set_keymap(0, "n", '<F11>', "<ESC>:w<bar>:term cd %:p:h:h && pio device monitor<CR>i", { noremap = true, silent = true })
         vim.api.nvim_buf_set_keymap(0, "i", '<F11>', "<ESC>:w<bar>:term cd %:p:h:h && pio device monitor<CR>i", { noremap = true, silent = true })
+
+        vim.api.nvim_buf_set_keymap(0, "n", '<F12>', "<ESC>:w<bar>:term cd %:p:h:h && pio -f -c vim run --target upload && pio device monitor<CR>i", { noremap = true, silent = true })
+        vim.api.nvim_buf_set_keymap(0, "i", '<F12>', "<ESC>:w<bar>:term cd %:p:h:h && pio -f -c vim run --target upload && pio device monitor<CR>i", { noremap = true, silent = true })
+
     end,
 })
 
