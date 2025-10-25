@@ -5,14 +5,15 @@ opt.tabstop = 4
 opt.shiftwidth = 4
 opt.softtabstop = 4
 opt.expandtab = true
-opt.smartindent = true
+opt.smartindent = false
+opt.autoindent = true
 opt.wrap = false
 
 -- Search
 opt.incsearch = true
 opt.ignorecase = true
 opt.smartcase = true
-opt.hlsearch = false
+opt.hlsearch = true  -- highlite search
 
 -- Appearance
 opt.number = true
@@ -38,13 +39,28 @@ opt.autochdir = false
 opt.iskeyword:append("-")
 opt.selection = "exclusive"
 opt.mouse = "a"
+-- opt.mouse = ""
 opt.clipboard:append("unnamedplus")
 opt.modifiable = true
 -- opt.guicursor = "n-v-c:block,i-ci-ve:block,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
+-- opt.guicursor = ""
 opt.encoding = "UTF-8"
 opt.showmode = false
 
--- folds
-opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
-opt.foldlevel = 99
+-- Enable folding ( setup in nvim-ufo )
+vim.o.foldenable = true     -- Enable folding by default
+-- vim.o.foldmethod = "manual" -- Default fold method (change as needed)
+vim.o.foldmethod = "marker" -- Default fold method (change as needed)
+vim.o.foldlevel = 99        -- Open most folds by default
+vim.o.foldcolumn = "2"
+
+--split windows
+vim.opt.splitright = true --split vertical window to the right
+vim.opt.splitbelow = true --split horizontal window to the bottom
+
+-- gets rid of line with white spaces
+vim.g.editorconfig = true
+
+
+-- vim.opt.wildmenu = true
+-- vim.opt.wildmode = ""

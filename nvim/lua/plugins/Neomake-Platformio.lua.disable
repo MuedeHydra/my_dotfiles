@@ -1,5 +1,0 @@
-return{
-    "barafael/neomake-platformio",
-    lazy = false,
-    -- opts = {},
-}
