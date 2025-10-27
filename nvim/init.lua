@@ -13,7 +13,8 @@ vim.pack.add {
     { src = "https://github.com/chomosuke/typst-preview.nvim" },
     { src = "https://github.com/RRethy/vim-illuminate" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-    -- { src = "https://github.com/gelguy/wilder.nvim" },
+    { src = "https://github.com/gelguy/wilder.nvim" },
+    { src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
 
     { src = "https://github.com/iamcco/markdown-preview.nvim" },
     -- falls yarn vergessen: in .local/share/nvim/site/pack/core/opt/markdown-preview.nvim -> yarn install
@@ -80,6 +81,33 @@ require("lualine").setup({
     tabline = {},
 })
 
+-- require("ibl").setup()
+local highlight = {
+    "RainbowRed",
+    "RainbowYellow",
+    "RainbowBlue",
+    "RainbowOrange",
+    "RainbowGreen",
+    "RainbowViolet",
+    "RainbowCyan",
+}
+
+local hooks = require "ibl.hooks"
+-- create the highlight groups in the highlight setup hook, so they are reset
+-- every time the colorscheme changes
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+end)
+
+require("ibl").setup { indent = { highlight = highlight } }
+
+
 -- require("wilder").setup({
 --       modes = {':', '/', '?'},
 --       next_key = '<Tab>',
@@ -91,41 +119,41 @@ require("lualine").setup({
 vim.opt.wildmenu = false
 vim.opt.wildmode = ""
 
--- local wilder = require('wilder')
--- wilder.setup({ modes = { ":", "/", "?" } })
---
---     -- wilder.setup({ modes = { ":", "/", "?" } })
---
---     -- Define custom highlight groups
---
---     wilder.set_option(
---         "renderer",
---         wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
---             min_width = "20%", -- minimum height of the popupmenu, can also be a number
---             max_height = "15%", -- to set a fixed height, set max_height to the same value
---             reverse = 0, -- if 1, shows the candidates from bottom to top
---             highlighter = {
---                 wilder.basic_highlighter(), -- Requires luarocks install pcre2
---             --     wilder.lua_pcre2_highlighter(), -- Requires luarocks install pcre2
---             --     wilder.lua_fzy_highlighter(), -- Requires fzy-lua-native
---             },
---             highlights = {
---                 default = wilder.make_hl(
---                     "WilderPopupMenu",
---                     "Pmenu",
---                     { { a = 1 }, { a = 1 }, { background = "#1E212B" } } -- Adjust background color
---                 ),
---                 accent = wilder.make_hl(
---                     "WilderAccent",
---                     "Pmenu",
---                     { { a = 1 }, { a = 1 }, { foreground = "#58FFD6", background = "#1e1e2e" } }
---                 ),
---             },
---             -- 'single', 'double', 'rounded' or 'solid'
---             -- can also be a list of 8 characters, see :h wilder#popupmenu_border_theme() for more details
---             border = "single",
---         }))
---     )
+local wilder = require('wilder')
+wilder.setup({ modes = { ":", "/", "?" } })
+
+    -- wilder.setup({ modes = { ":", "/", "?" } })
+
+    -- Define custom highlight groups
+
+    wilder.set_option(
+        "renderer",
+        wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
+            min_width = "20%", -- minimum height of the popupmenu, can also be a number
+            max_height = "15%", -- to set a fixed height, set max_height to the same value
+            reverse = 0, -- if 1, shows the candidates from bottom to top
+            highlighter = {
+                wilder.basic_highlighter(), -- Requires luarocks install pcre2
+            --     wilder.lua_pcre2_highlighter(), -- Requires luarocks install pcre2
+            --     wilder.lua_fzy_highlighter(), -- Requires fzy-lua-native
+            },
+            highlights = {
+                default = wilder.make_hl(
+                    "WilderPopupMenu",
+                    "Pmenu",
+                    { { a = 1 }, { a = 1 }, { background = "#1E212B" } } -- Adjust background color
+                ),
+                accent = wilder.make_hl(
+                    "WilderAccent",
+                    "Pmenu",
+                    { { a = 1 }, { a = 1 }, { foreground = "#58FFD6", background = "#1e1e2e" } }
+                ),
+            },
+            -- 'single', 'double', 'rounded' or 'solid'
+            -- can also be a list of 8 characters, see :h wilder#popupmenu_border_theme() for more details
+            border = "single",
+        }))
+    )
 
 require("mini.comment").setup({
     mappings = {
@@ -152,7 +180,7 @@ require("typst-preview").setup({
     invert_colors = '{"rest": "always","image": "never"}',
 
     -- für "kiosk" ähnlicher modus
-    -- open_cmd = "firefox %s -P typst-preview --class typst-preview --new-window",
+    open_cmd = "firefox %s -P typst-preview --class typst-preview --new-window",
     -- profile für "typst-preview" anlegen unter `about:profiles`
     -- in ~/.mozilla/firefox/lvqpvjav.typst-preview/chrome/userChrome.css resp. ~/.mozilla/firefox/<profilname>/chrome/userChrome.css
     -- /* Hauptleisten ausblenden */
