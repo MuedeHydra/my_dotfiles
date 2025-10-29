@@ -15,6 +15,7 @@ vim.pack.add {
     { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
     { src = "https://github.com/gelguy/wilder.nvim" },
     { src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
+    { src = "https://github.com/m4xshen/hardtime.nvim" },
 
     { src = "https://github.com/iamcco/markdown-preview.nvim" },
     -- falls yarn vergessen: in .local/share/nvim/site/pack/core/opt/markdown-preview.nvim -> yarn install
@@ -25,6 +26,7 @@ vim.pack.del {
     -- { src = "https://github.com/iamcco/markdown-preview.nvim" },
 }
 
+-- braucht npm als dep
 require('mason').setup()
 require('mason-lspconfig').setup({
     ensure_installed = {
@@ -42,6 +44,8 @@ require("blink.cmp").setup({
     sources = {
         default = { 'lsp', 'path', 'buffer' },
     },
+    -- Disable cmdline
+    cmdline = { enabled = false },
     completion = {
         list = {
             selection = { preselect = false, auto_insert = true },
@@ -63,6 +67,9 @@ require('cyberdream').setup({
     transparent = true,
 })
 vim.cmd("colorscheme cyberdream")
+
+-- require('hardtime').setup({
+-- })
 
 require("lualine").setup({
     options = {
