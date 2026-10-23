@@ -6,25 +6,37 @@ vim.pack.add {
     { src = 'https://github.com/mason-org/mason.nvim' },
     { src = 'https://github.com/mason-org/mason-lspconfig.nvim' },
     { src = "https://github.com/Saghen/blink.cmp" },
+    { src = 'https://github.com/saghen/blink.lib' },
     { src = "https://github.com/scottmckendry/cyberdream.nvim" },
     { src = "https://github.com/nvim-lualine/lualine.nvim" },
     { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
     { src = "https://github.com/nvim-mini/mini.nvim" },
     { src = "https://github.com/chomosuke/typst-preview.nvim" },
     { src = "https://github.com/RRethy/vim-illuminate" },
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+    -- { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
     { src = "https://github.com/gelguy/wilder.nvim" },
     { src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
+    -- { src = "https://github.com/gpanders/vim-medieval" },
     { src = "https://github.com/m4xshen/hardtime.nvim" },
+    -- { src = "https://github.com/goerz/jupytext.nvim" },
 
     { src = "https://github.com/iamcco/markdown-preview.nvim" },
     -- falls yarn vergessen: in .local/share/nvim/site/pack/core/opt/markdown-preview.nvim -> yarn install
     -- muss noch manuel install werden: in: "~/.local/share/nvim/site/pack/core/opt/markdown-preview.nvim" -> npx --yes yarn install
+
+
+    -- für avante
+    { src = "https://github.com/yetone/avante.nvim" },
+    { src = "https://github.com/stevearc/dressing.nvim" },
+    { src = "https://github.com/nvim-lua/plenary.nvim" },
+    { src = "https://github.com/MunifTanjim/nui.nvim" },
+    { src = "https://github.com/nvim-tree/nvim-web-devicons" },
 }
-vim.pack.del {
-    -- { src = "https://github.com/gelguy/wilder.nvim" },
-    -- { src = "https://github.com/iamcco/markdown-preview.nvim" },
-}
+
+-- vim.pack.del {
+--     -- { src = "https://github.com/gelguy/wilder.nvim" },
+--     -- { src = "https://github.com/iamcco/markdown-preview.nvim" },
+-- }
 
 -- braucht npm als dep
 require('mason').setup()
@@ -36,7 +48,30 @@ require('mason-lspconfig').setup({
         "tinymist",
         "clangd",
         "bashls",
-    }
+    },
+  --   cmd = {
+  --   "clangd",
+  --   "--background-index",
+  --   "--clang-tidy",
+  --   "--completion-style=detailed",
+  --   "--header-insertion=never",
+  --   "--query-driver=**/.platformio/packages/toolchain-*/**/bin/*"
+  -- },
+    -- cmd = {
+    -- -- "clangd",
+    -- --     "--background-index",
+    -- --     "--clang-tidy",
+    -- --     "--compile-commands-dir=.",
+    -- --     "--header-insertion=never",
+    -- --     -- WICHTIG: Der Pfad muss absolut sein und deine Pfade aus dem Log enthalten
+    -- --     "--query-driver=/media/home/tzwicker/.platformio/packages/toolchain-xtensa*/bin/*gcc*"
+    --
+    -- "clangd",
+    --     "--background-index",
+    --     "--query-driver=/usr/bin/gcc, /usr/bin/g++, ~/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf*",
+    --     "--clang-tidy",
+    --     "--header-insertion=never",
+    -- },
 })
 
 require("blink.cmp").setup({
@@ -69,6 +104,59 @@ require('cyberdream').setup({
 vim.cmd("colorscheme cyberdream")
 
 -- require('hardtime').setup({
+-- })
+
+-- require('avante').setup({
+--   provider = "ollama",
+--   vendors = {
+--     ollama = {
+--       __inherited_from = "openai",
+--       endpoint = "http://127.0.0.1:11434/v1",
+--       model = "gemma4:e4b",
+--     },
+--   },
+-- })
+
+
+-- require('avante').setup({
+--     provider = "ollama",
+--     providers = {
+--       ollama = {
+--           -- endpoint = "http://127.0.0.1:11434/v1",
+--         -- model = "gemma4:e4b",
+--         model = "qwen2.5-coder:7b",
+        -- model = "qwq:32b",
+--         is_env_set = require("avante.providers.ollama").check_endpoint_alive,
+--       },
+--       -- options = {
+--       --   -- num_ctx = 8192,
+--       --   num_ctx = 4096,
+--       --   num_predict = 1024,
+--       --   temperature = 0,
+--       -- },
+--     }
+-- })
+-- require('avante').setup({
+--     provider = "ollama",
+--     providers = {
+--       ollama = {
+--         endpoint = "http://127.0.0.1:11434", -- Note that there is no /v1 at the end.
+--         model = "gemma4:e4b",
+--       },
+--     },
+-- })
+
+
+-- require('avante').setup({
+--     provider = "kobold",
+--     providers = {
+--         kobold = {
+--             __inherited_from = "openai",
+--             endpoint = "http://localhost:5001/v1",
+--             model = "gemma4",
+--             api_key_name = "",
+--         },
+--     },
 -- })
 
 require("lualine").setup({
@@ -130,9 +218,7 @@ local wilder = require('wilder')
 wilder.setup({ modes = { ":", "/", "?" } })
 
     -- wilder.setup({ modes = { ":", "/", "?" } })
-
     -- Define custom highlight groups
-
     wilder.set_option(
         "renderer",
         wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
@@ -200,6 +286,11 @@ require("typst-preview").setup({
     --
     -- sowie unter `about:config`: toolkit.legacyUserProfileCustomizations.stylesheets auf true
 })
+
+-- require 'vim-medieval'.setup() in keymaps
+
+-- require("jupytext").setup({
+-- })
 
 -- require("markdown-preview").setup({
 --     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
